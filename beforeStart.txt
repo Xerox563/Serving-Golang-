@@ -63,3 +63,36 @@ fmt.Println("World")
 is internally treated as:
 fmt.Println("Hello");
 fmt.Println("World");
+
+// commands
+
+-> go run main.go
+-> go env GOPATH -> Where everythign stores about go.
+-> go help
+-> go help [Module Name]
+
+// Lexer 
+Job of Lexer -> are u following the grammer of language, to ensure syntax is correct, or atleast variables are defined are correct ,before precompilation , lexxer goes and asks is the code correct .
+lexer puts semicolon into code where needed.
+
+// types
+case sensitive
+first initial capital letter provides the idea , wheather the thing is public 
+fmt.Println -> 'P' -> means Println fun was imported publicly so that anyone can use it.
+
+-> everything is a type
+// Basic types
+string
+bool
+Integer -> uint8,uint64,int8,int64,uintptr
+Floating ->float32,float64
+complex
+
+// Advanced types
+Array
+Slices
+Maps
+Structs
+Pointers
+functions
+Channels
