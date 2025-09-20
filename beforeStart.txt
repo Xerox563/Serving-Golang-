@@ -70,6 +70,8 @@ fmt.Println("World");
 -> go env GOPATH -> Where everythign stores about go.
 -> go help
 -> go help [Module Name]
+-> go env
+-> GOOS="linux/windows/darwin" go build // build for any OS[build different for different OS]
 
 // Lexer 
 Job of Lexer -> are u following the grammer of language, to ensure syntax is correct, or atleast variables are defined are correct ,before precompilation , lexxer goes and asks is the code correct .
@@ -96,3 +98,17 @@ Structs
 Pointers
 functions
 Channels
+
+// Notes
+Memory management happens automatically in go.
+:: new ()
+-> memory is allocated but not INIT
+-> Your will get a Memory Address.
+-> Zeroed Storage : Cant put data initially
+:: make ()
+-> memory is allocated and INIT
+-> Your will get a Memory Address.
+-> non-zeroed storage : can put data
+
+:: Garbage Collection happens automatically [out of scope/nil]
+
