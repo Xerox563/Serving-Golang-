@@ -1,0 +1,98 @@
+Golang is Compiled Programming Language.
+Go tool can run file directly , without VM.
+Executables are differnt for OS.
+Used : System apps to webs apps - cloud
+We dont have classes[but have struct] in Go.
+no try catch , lexer does a lot of work[semicolon]
+
+
+// Indepth 
+:: Go is fast, simple, and practical. It avoids heavy OOP, makes error handling explicit, and reduces boilerplate (like semicolons and try/catch). That’s why it’s so popular for modern cloud and system apps.
+1. Go is a Compiled Programming Language
+
+When you write Go code (.go files), the compiler translates it directly into machine code (binary executable).
+This makes Go programs fast because they run directly on the OS without needing another layer (like a VM or interpreter).
+Example:
+go build main.go   # produces an executable like main.exe (Windows) or ./main (Linux/macOS)
+
+2. Go Tool Runs Files Directly
+
+You don’t need to always build an executable to test code.
+The go run command compiles your code in the background and runs it immediately:
+go run main.go
+This is useful during development when you just want to test quickly.
+
+3. Executables are OS-Specific
+
+The binary you build on Windows won’t run on Linux or macOS.
+Go makes it super easy to cross-compile (build for another OS/architecture):
+# Build Linux binary while on Windows
+GOOS=linux GOARCH=amd64 go build main.go
+
+4. What Go is Used For
+
+System tools (fast, lightweight command-line apps)
+Web applications (APIs, servers — thanks to the built-in net/http package)
+Cloud-native apps (Go powers Docker, Kubernetes, Terraform, etc.)
+Concurrent programs (because of Goroutines and Channels)
+5. No Classes, But Structs
+Go is not object-oriented in the traditional way (no classes/inheritance).
+Instead, it has structs (like lightweight objects) and you can attach methods to them.
+
+6. Error Handling (No Try-Catch)
+
+Go doesn’t have try-catch-finally.
+Instead, functions return an error value (usually the second return type).
+You check it with an if:
+  data, err := os.ReadFile("file.txt")
+  if err != nil {
+    fmt.Println("Error reading file:", err)
+    return
+  }
+  fmt.Println(string(data))
+This makes error handling explicit and simple.
+
+7. Semicolons (Lexer Handles Them)
+
+In C/Java, you write ; at the end of every line.
+In Go, you usually don’t write semicolons — the lexer (part of the compiler) inserts them automatically.
+Rule: if a line ends with something that could end a statement (like an identifier, number, }, ), return, etc.), the lexer adds ;.
+Example:
+fmt.Println("Hello")
+fmt.Println("World")
+is internally treated as:
+fmt.Println("Hello");
+fmt.Println("World");
+
+// commands
+
+-> go run main.go
+-> go env GOPATH -> Where everythign stores about go.
+-> go help
+-> go help [Module Name]
+
+// Lexer 
+Job of Lexer -> are u following the grammer of language, to ensure syntax is correct, or atleast variables are defined are correct ,before precompilation , lexxer goes and asks is the code correct .
+lexer puts semicolon into code where needed.
+
+// types
+case sensitive
+first initial capital letter provides the idea , wheather the thing is public 
+fmt.Println -> 'P' -> means Println fun was imported publicly so that anyone can use it.
+
+-> everything is a type
+// Basic types
+string
+bool
+Integer -> uint8,uint64,int8,int64,uintptr
+Floating ->float32,float64
+complex
+
+// Advanced types
+Array
+Slices
+Maps
+Structs
+Pointers
+functions
+Channels
