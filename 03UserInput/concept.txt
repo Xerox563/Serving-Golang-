@@ -22,5 +22,3 @@ Key Concepts:
    - Using delimiters in input ('\n')
    - Type checking with Printf %T
    - Error handling basics (comma-ok syntax)
-
-This module introduces basic input handling and demonstrates how to interact with users through the console in Go.
