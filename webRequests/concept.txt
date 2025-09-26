@@ -1,0 +1,46 @@
+webRequests Module Concepts
+========================
+
+Key Concepts:
+1. HTTP Requests
+   - Using net/http package
+   - GET requests
+   - Response handling
+   - Body reading
+
+2. Response Handling:
+   - Response type
+   - Body reading
+   - Status codes
+   - Headers
+   - Connection management
+
+3. Important Features:
+   - http.Get function
+   - Response body handling
+   - Error handling
+   - Resource cleanup
+   - Response type inspection
+
+4. Best Practices:
+   - Always close response body
+   - Error handling
+   - Response validation
+   - Memory management
+   - Content reading
+
+5. Key Operations:
+   - Making GET requests
+   - Reading response body
+   - Converting response bytes
+   - Closing connections
+   - Error handling
+
+6. Examples Demonstrated:
+   - Basic GET request
+   - Response handling
+   - Body reading
+   - Error handling
+   - Resource cleanup
+
+This module covers basic web requests in Go, focusing on GET requests and response handling.
