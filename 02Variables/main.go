@@ -22,7 +22,7 @@ func main() {
 
 	//uint/int
 	var val uint8 = 255  // Use when specifiic to OS.
-	var x int = 256 // Use safely for all .
+	var x int = 256
 	fmt.Println(val,x)
 	fmt.Printf("Variable is of type: %T \n",val)
 
