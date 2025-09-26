@@ -25,7 +25,7 @@ var courses[]Course
 
 // middleware - helper-file 
 func (c *Course) IsEmpty() bool {
-   // both fields are empty : field is empty !!
+  
    return c.Courseid == "" && c.CourseName == ""
 }
 
