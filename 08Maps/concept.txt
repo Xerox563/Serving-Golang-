@@ -1,0 +1,40 @@
+08Maps Module Concepts
+===================
+
+Key Concepts:
+1. Map Basics
+   - Declaration using make()
+   - Key-value pairs
+   - Dynamic sizing
+   - Zero value (nil)
+
+2. Map Operations
+   - Adding key-value pairs
+   - Accessing values
+   - Deleting entries
+   - Checking existence
+
+3. Iteration
+   - Range loop over maps
+   - Key-value iteration
+   - Ignoring keys/values using _
+   - Order of iteration (random)
+
+4. Important Functions:
+   - make(): Creating maps
+   - delete(): Removing entries
+   - len(): Map size
+
+5. Best Practices:
+   - Check for key existence
+   - Use make() for initialization
+   - Handle nil maps
+   - Key type considerations
+
+6. Key Features:
+   - Key must be comparable type
+   - Values can be any type
+   - Reference type
+   - No fixed size
+
+This module covers Go's implementation of hash tables (maps) and their usage patterns.

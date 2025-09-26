@@ -1,0 +1,40 @@
+01hello Module Concepts
+====================
+
+Key Concepts:
+1. Basic Go Program Structure
+   - package declaration (package main)
+   - import statements
+   - main function as entry point
+
+2. Important Elements Used:
+   - fmt package for basic I/O
+   - Println function for console output
+   - Function declaration syntax
+   - Package-level scope
+
+3. Syntax Introduction:
+   - Go's basic syntax for function declaration
+   - Package import syntax
+   - String literal usage
+
+This module serves as the introduction to Go programming, demonstrating the minimal structure required for a working Go program.
+
+
+// fmt is a toolbox in go for handling text input and output.
+
+** Behind the Scenes?
+
+Go compiler reads your file.
+Sees package main → knows it must make a runnable program.
+Loads the fmt package.
+Finds the main() function → this is the entry point.
+Execution starts in main().
+It runs fmt.Println("Hello, World!").
+The console prints exactly what’s inside the quotes (plus a new line).
+
+// printf 
+-> gives you fine control over how the output looks.
+-> You must provide a format string with special placeholders (like %s, %d, %f).
+// prinln 
+-> prints your text and automatically adds a new line at the end .

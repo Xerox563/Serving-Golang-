@@ -5,13 +5,15 @@ import "fmt"
 // jwttoken := xerojfjwfwwwnv  // error[walrus operator cant be used outside any method: will through the error.]
 var y = "xerojfjwfwwwnv" // fine
 var x int = 34  // fine
+var y string="String"
 const LoginToken string = "yrruiojqfvbsndvlk3y3428nbkjnnn42klt"  // L -> public keyword -> accessible global
 func main() {
     
 	//string
 	var username string ="Ritika Mishra"
 	fmt.Println(username)
-    fmt.Printf("Variable is of type: %T \n",username)
+	fmt.Println(y)
+   fmt.Printf("Type of the Variable is: %T",username)
     
 	//bool
 	var isLogged bool = false
@@ -48,3 +50,12 @@ func main() {
 	println(LoginToken)
 	fmt.Printf("Variable is of type:%T \n",LoginToken)
 }
+
+
+/*
+: bufio -> for effiecient reading & buffered[ip is stored in mem. before processing] ip/op.
+: os -> or interacting with os(os.Stdin)
+: fmt -> for printing the op.
+
+*/
+

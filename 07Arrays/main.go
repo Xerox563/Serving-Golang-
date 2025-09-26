@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+
 func main() {
 	fmt.Println("Exploring arrays !!")
 
@@ -13,6 +14,15 @@ func main() {
 	arr[1]="Amelton"
 	arr[2]="Xerox"
 	arr[3]="Dextrr"
+	var arr1 =  []string{"amit","Hello"}
+	fmt.Println(arr1)
+	fmt.Println(len(arr1))
+	// arr1 = append(arr1,"xtra","Extra")
+	// fmt.Println(arr1)
+	fmt.Printf("-------------------------------------------- \n")
+	arr1 = append(arr1[0:])
+	fmt.Println(arr1)
+
 	// fmt.Println("Array Values is :",arr)
 	// fmt.Println("Len of Array is :",len(arr))
 	

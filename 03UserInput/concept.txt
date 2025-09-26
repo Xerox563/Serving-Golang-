@@ -1,0 +1,26 @@
+03UserInput Module Concepts
+=========================
+
+Key Concepts:
+1. Input Handling
+   - Using bufio package for input
+   - Creating a reader from standard input
+   - Reading user input as strings
+
+2. Important Packages Used:
+   - bufio: For buffered I/O operations
+   - os: For accessing standard input
+   - fmt: For formatted I/O
+
+3. Key Functions & Methods:
+   - bufio.NewReader(): Creating a new reader
+   - reader.ReadString(): Reading input until delimiter
+   - Error handling with blank identifier (_)
+
+4. Important Concepts:
+   - Buffered input reading
+   - Using delimiters in input ('\n')
+   - Type checking with Printf %T
+   - Error handling basics (comma-ok syntax)
+
+This module introduces basic input handling and demonstrates how to interact with users through the console in Go.
