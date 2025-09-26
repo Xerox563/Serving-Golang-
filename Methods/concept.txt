@@ -1,0 +1,43 @@
+Methods Module Concepts
+=====================
+
+Key Concepts:
+1. Struct Methods
+   - Method declaration syntax
+   - Receiver types
+   - Value receivers vs pointer receivers
+   - Method sets
+
+2. Struct Basics:
+   - Struct definition
+   - Field naming conventions
+   - Exported vs unexported fields
+   - Struct initialization
+
+3. Method Features:
+   - Method receivers
+   - Method calling syntax
+   - Value vs pointer methods
+   - Method inheritance
+
+4. Important Concepts:
+   - Method vs Function differences
+   - Struct field visibility
+   - Method receiver behavior
+   - Value copying in methods
+   - Struct printing with %+v
+
+5. Key Points:
+   - Methods are functions with receivers
+   - Value receivers create copies
+   - Capitalization for export control
+   - Struct field access in methods
+   - Method naming conventions
+
+6. Examples Demonstrated:
+   - GetStatus method
+   - NewMail method (value receiver limitations)
+   - Struct field access
+   - Pretty printing structs
+
+This module demonstrates how to work with methods in Go, particularly in relation to structs.
