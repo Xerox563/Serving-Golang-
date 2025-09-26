@@ -1,0 +1,42 @@
+Defer Module Concepts
+===================
+
+Key Concepts:
+1. Defer Basics
+   - Defer keyword usage
+   - Execution order
+   - Stack-based deferral
+   - Function completion handling
+
+2. Important Features:
+   - LIFO (Last In, First Out) execution
+   - Multiple defer statements
+   - Defer in loops
+   - Deferred function calls
+
+3. Use Cases:
+   - Resource cleanup
+   - File handling
+   - Connection closing
+   - Lock releasing
+   - Logging
+
+4. Key Points:
+   - Deferred calls execute in reverse order
+   - Executes at function return
+   - Arguments evaluated immediately
+   - Used for cleanup operations
+
+5. Best Practices:
+   - Use defer for cleanup
+   - Consider execution order
+   - Be mindful of resource management
+   - Understand evaluation timing
+
+6. Examples Demonstrated:
+   - Basic defer usage
+   - Multiple defers
+   - Defer in loops
+   - Order of execution
+
+This module covers Go's defer mechanism for delaying execution of function calls until the surrounding function returns.
