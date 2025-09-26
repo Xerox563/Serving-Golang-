@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// Short about Pointers !!
 func main() {
 	fmt.Println("Lets explore Pointers")
 
