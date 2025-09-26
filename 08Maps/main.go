@@ -18,7 +18,7 @@ func main() {
     delete(lang, "rb")
     fmt.Println("List of All Languages after deleting rb:", lang)
 
-    // loops
+    // looping the map
     for key, value := range lang {
         fmt.Printf("for Key %v, value is %v\n", key, value)
     }
