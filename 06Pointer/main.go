@@ -9,7 +9,9 @@ func main() {
 	var ptr *int
 	fmt.Println("Value of pointer is ",ptr)
 	fmt.Println("Address of pointer is ",&ptr)
-
+    var pointr *int
+	fmt.Println(pointr)
+	fmt.Println(&pointr)
 	num := 23
 
 	var ptr1 = &num
@@ -19,6 +21,13 @@ func main() {
 	*ptr1 = *ptr1 * 2
 	fmt.Println(*ptr1) // 46 -> actuall change in num [reflected]
 	fmt.Println(num) // 46
+
+	x := 45
+	fmt.Println("x val: ",x);
+	fmt.Println("x val: ",&x);
+	y:= &x
+	fmt.Println("x val: ",y);
+	fmt.Println("x val: ",*y);
 }
 
 /*

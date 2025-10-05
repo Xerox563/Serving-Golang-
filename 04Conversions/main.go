@@ -25,6 +25,5 @@ func main() {
 		newRating+=1
 		fmt.Println("New Rating is :",newRating)
 	}
-
-    
 }
+
