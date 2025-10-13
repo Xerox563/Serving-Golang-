@@ -5,6 +5,7 @@ using namespace std;
 // Space : O(queue+vis+bfs) -> O(3*n)
 void bfs_traversal(int n, vector<int> &vis, vector<int> &adj[])
 {
+    // basically doing a bfs_traversal [which simply uses the queue and as it is same as level order traversal]
     queue<int> q;
     q.push(n);
     vis[n] = 1; // traversed
