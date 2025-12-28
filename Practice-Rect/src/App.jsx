@@ -2,12 +2,17 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import About from "./Components/Routing/Main";
 import Home from "./Components/Routing/Home";
+import Profile from "./context/Profile";
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-    </Routes>
+    <>
+      <Profile />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </>
   );
 };
 
