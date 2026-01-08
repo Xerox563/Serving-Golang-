@@ -82,6 +82,69 @@ app.use(
 );
 // now user 2 will be called
 
+// order of execution : till Line: 73 -> Line: 74 -> Line: 77 -> Line: 75 [with error at same line] [according to js Execution context]
+
+// * New case
+
+// Last one will be sent as response
+app.use(
+  "/learn",
+  (req, res, next) => {
+    console.log("HAndling LEarn: 1");
+    // res.send("Handling LEarn 1");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 2");
+    // res.send("Handling LEarn 2");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 3");
+    // res.send("Handling LEarn 3");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 4");
+    //  res.send("Handling LEarn 4");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 5");
+    res.send("Handling LEarn 5");
+  }
+);
+
+// case 2 : This will give error , as last next will not find the next route handler
+// also route handles can be wrapped inside the array [some or all or single]
+app.use("/learn", [
+  (req, res, next) => {
+    console.log("HAndling LEarn: 1");
+    // res.send("Handling LEarn 1");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 2");
+    // res.send("Handling LEarn 2");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 3");
+    // res.send("Handling LEarn 3");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 4");
+    //  res.send("Handling LEarn 4");
+    next();
+  },
+  (req, res, next) => {
+    console.log("HAndling LEarn: 5");
+    //  res.send("Handling LEarn 5");
+    next();
+  },
+]);
+
 app.listen(3000, () => {
   console.log("Server running on Port:3000 ");
 });
