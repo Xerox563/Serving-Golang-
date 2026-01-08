@@ -49,13 +49,30 @@ const app = express();
 // now user 2 will be called
 
 // * ---------------- Case 4 -----------------
+// app.use(
+//   "/users",
+//   (req, res, next) => {
+//     // First middleware
+//     // console.log("user:1 called !!");
+//     res.send("Handling the route User:1 !!");
+//     next();
+//   },
+//   (req, res) => {
+//     // Second middleware
+//     console.log("user:2 called !!");
+//     res.send("Handling the route user:2 !!");
+//   }
+// );
+// now user 1 will be called
+
+// * ---------------- Case 5 -----------------
 app.use(
   "/users",
   (req, res, next) => {
     // First middleware
     // console.log("user:1 called !!");
-    res.send("Handling the route User:1 !!");
     next();
+    res.send("Handling the route User:1 !!");
   },
   (req, res) => {
     // Second middleware
@@ -63,7 +80,7 @@ app.use(
     res.send("Handling the route user:2 !!");
   }
 );
-// now user 1 will be called
+// now user 2 will be called
 
 app.listen(3000, () => {
   console.log("Server running on Port:3000 ");
