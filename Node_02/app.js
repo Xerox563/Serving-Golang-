@@ -1,5 +1,21 @@
 const express = require("express");
+const { adminAuth, userAuth } = require("./middleware/authMiddleware");
 const app = express();
+
+// using middleware
+app.use("/admin", adminAuth);
+app.use("/", userAuth);
+
+app.get("printData", (req, res, next) => {
+  console.log("Auth Method Called !!");
+  res.send("Print all Users Data !!");
+});
+
+app.get("printDetails", userAuth, (req, res, next) => {
+  // first middleware userAuth will run only if authticates then next line will be called
+  console.log("Auth Method Called !!");
+  res.send("Print all Users Data !!");
+});
 
 // * ---------------- Case 1 -----------------
 // one route can have the multiple route handlers
@@ -66,20 +82,20 @@ const app = express();
 // now user 1 will be called
 
 // * ---------------- Case 5 -----------------
-app.use(
-  "/users",
-  (req, res, next) => {
-    // First middleware
-    // console.log("user:1 called !!");
-    next();
-    res.send("Handling the route User:1 !!");
-  },
-  (req, res) => {
-    // Second middleware
-    console.log("user:2 called !!");
-    res.send("Handling the route user:2 !!");
-  }
-);
+// app.use(
+//   "/users",
+//   (req, res, next) => {
+//     // First middleware
+//     // console.log("user:1 called !!");
+//     next();
+//     res.send("Handling the route User:1 !!");
+//   },
+//   (req, res) => {
+//     // Second middleware
+//     console.log("user:2 called !!");
+//     res.send("Handling the route user:2 !!");
+//   }
+// );
 // now user 2 will be called
 
 // order of execution : till Line: 73 -> Line: 74 -> Line: 77 -> Line: 75 [with error at same line] [according to js Execution context]
@@ -87,63 +103,63 @@ app.use(
 // * New case
 
 // Last one will be sent as response
-app.use(
-  "/learn",
-  (req, res, next) => {
-    console.log("HAndling LEarn: 1");
-    // res.send("Handling LEarn 1");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 2");
-    // res.send("Handling LEarn 2");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 3");
-    // res.send("Handling LEarn 3");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 4");
-    //  res.send("Handling LEarn 4");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 5");
-    res.send("Handling LEarn 5");
-  }
-);
+// app.use(
+//   "/learn",
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 1");
+//     // res.send("Handling LEarn 1");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 2");
+//     // res.send("Handling LEarn 2");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 3");
+//     // res.send("Handling LEarn 3");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 4");
+//     //  res.send("Handling LEarn 4");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 5");
+//     res.send("Handling LEarn 5");
+//   }
+// );
 
 // case 2 : This will give error , as last next will not find the next route handler
 // also route handles can be wrapped inside the array [some or all or single]
-app.use("/learn", [
-  (req, res, next) => {
-    console.log("HAndling LEarn: 1");
-    // res.send("Handling LEarn 1");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 2");
-    // res.send("Handling LEarn 2");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 3");
-    // res.send("Handling LEarn 3");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 4");
-    //  res.send("Handling LEarn 4");
-    next();
-  },
-  (req, res, next) => {
-    console.log("HAndling LEarn: 5");
-    //  res.send("Handling LEarn 5");
-    next();
-  },
-]);
+// app.use("/learn", [
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 1");
+//     // res.send("Handling LEarn 1");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 2");
+//     // res.send("Handling LEarn 2");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 3");
+//     // res.send("Handling LEarn 3");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 4");
+//     //  res.send("Handling LEarn 4");
+//     next();
+//   },
+//   (req, res, next) => {
+//     console.log("HAndling LEarn: 5");
+//     //  res.send("Handling LEarn 5");
+//     next();
+//   },
+// ]);
 
 // route handlers are the functions that are actually handling the routes .
 // these functions that uu put in the middle are the middlewares
@@ -261,12 +277,12 @@ Browser → Express → Middleware → Route → Logic → Response
 
 */
 
-app.listen(3000, () => {
-  console.log("Server running on Port:3000 ");
+app.listen(3001, () => {
+  console.log("Server running on Port:3001 ");
 });
 
 //* Middleware processes a request before it reaches the route handler, while the route handler handles a specific route and sends the response.
 
-app.listen(4444, (req, res) => {
-  console.log("Server Running on Port:4444");
-});
+// app.listen(4444, (req, res) => {
+//   console.log("Server Running on Port:4444");
+// });
