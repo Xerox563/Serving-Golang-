@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 app.use(express.json());
 // It reads the json object converts into the js object and adds them to the request object : req: now req.body -> js object
 
-// Post some data into the database
+// Signup Route
 app.post("/signup", async (req, res) => {
   // creating the new instance of user model
   console.log(req.body);
@@ -42,6 +42,29 @@ app.post("/signup", async (req, res) => {
     res.send("User Added Successfully !!");
   } catch (err) {
     res.status(400).send(err.message);
+  }
+});
+
+// Login Route
+app.post("/login", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    // first check the person who is trying to enter the db is valid email
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      throw new Error("Email Id is not Present in the DB");
+    }
+
+    const isPasswordValid = bcrypt.compare(password, user.password); // {plain text,hash} : returns the boolean
+    if (isPasswordValid) {
+      console.log("Login Successful !!");
+      res.send("Login Successful !!");
+    } else {
+      console.log("Invalid Password Entered !!");
+      res.send("Invalid Password Entered !!");
+    }
+  } catch (err) {
+    res.status(400).send("Something Went Wrong in the Login Route !!");
   }
 });
 
