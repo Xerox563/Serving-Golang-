@@ -4,6 +4,7 @@ const User = require("./models/user");
 const app = express();
 const PORT = process.env.PORT || 4444;
 const { validateSignUpData } = require("./utils/validation");
+const bcrypt = require("bcrypt");
 // console.log("MONGO_URI:", process.env.MONGO_URI);
 
 app.use(express.json());
@@ -22,7 +23,21 @@ app.post("/signup", async (req, res) => {
   //     passwprd: "xerox1@54321",
   //   });
   try {
-    validateSignUpData(req); // This validates through our custom code writen in utils/validation.js
+    validateSignUpData(req); // * This validates through our custom code writen in utils/validation.js
+
+    // * Encrypt the password
+    const { firstName, lastName, emailId, password } = req.body;
+    const passwordHash = await bcrypt.hash(password, 10);
+    console.log(passwordHash);
+
+    // Creating new instance of the user model : Only below fields needed for the signup
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+    });
+
     await user.save(); // returns a promise
     res.send("User Added Successfully !!");
   } catch (err) {
