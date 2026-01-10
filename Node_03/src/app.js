@@ -2,6 +2,7 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const User = require("./models/user");
+const user = require("./models/user");
 const app = express();
 const PORT = process.env.PORT || 4444;
 // console.log("MONGO_URI:", process.env.MONGO_URI);
@@ -56,6 +57,31 @@ app.get("/feed", async (req, res) => {
     }
   } catch (err) {
     res.status(400).send("Error Saving the user: ", err.message);
+  }
+});
+
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    console.log(userId);
+    const user = await User.findByIdAndDelete(userId);
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("Something Went Wrong !!");
+  }
+});
+
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  try {
+    console.log(userId);
+    const user = await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+    });
+    res.send("User: Updated Successfully");
+  } catch (err) {
+    res.status(400).send("Something Went Wrong !!");
   }
 });
 
