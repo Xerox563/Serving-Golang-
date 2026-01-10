@@ -1,7 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const User = require("./models/user");
-const user = require("./models/user");
 const app = express();
 const PORT = process.env.PORT || 4444;
 // console.log("MONGO_URI:", process.env.MONGO_URI);
@@ -25,7 +24,7 @@ app.post("/signup", async (req, res) => {
     await user.save(); // returns a promise
     res.send("User Added Successfully !!");
   } catch (err) {
-    res.status(400).send("Error Saving the user: ", err.message);
+    res.status(400).send(err.message);
   }
 });
 
@@ -39,19 +38,19 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-app.get("getUserByEmail", async (req, res) => {
+app.get("/getUserByEmail", async (req, res) => {
   const userEmailId = req.body.emailId;
   try {
     console.log(userEmailId);
-    const user = await User.find({ firstName: userEmailId });
-    if (!user) {
+    const user = await User.find({ emailId: userEmailId });
+    if (!user || user.length === 0) {
       res.status(400).send("User not Found !!");
     } else {
       res.send(user);
       console.log(user);
     }
   } catch (err) {
-    res.status(400).send("Error Saving the user: ", err.message);
+    res.status(400).send(err.message);
   }
 });
 
@@ -65,7 +64,7 @@ app.get("/feed", async (req, res) => {
       console.log(user);
     }
   } catch (err) {
-    res.status(400).send("Error Saving the user: ", err.message);
+    res.status(400).send(err.message);
   }
 });
 
@@ -80,10 +79,22 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
-  const userId = req.body.userId;
+app.patch("/user/:UserId", async (req, res) => {
+  const userId = req.params.UserId;
   const data = req.body;
   try {
+    const Allowed_updates = ["photoUrl", "about", "gender", "age", "skills"];
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      Allowed_updates.includes(k)
+    );
+    if (!isUpdateAllowed) {
+      throw new Error("Update is not Allowed");
+    }
+
+    if (data?.skills?.length > 10) {
+      console.log("More than 10 skills are not allowed !!");
+      throw new Error("More than 10 skills are not allowed !!");
+    }
     console.log(userId);
     const user = await User.findByIdAndUpdate(userId, data, {
       returnDocument: "after",
