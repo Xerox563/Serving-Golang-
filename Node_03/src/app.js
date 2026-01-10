@@ -3,6 +3,7 @@ const connectDB = require("./config/database");
 const User = require("./models/user");
 const app = express();
 const PORT = process.env.PORT || 4444;
+const { validateSignUpData } = require("./utils/validation");
 // console.log("MONGO_URI:", process.env.MONGO_URI);
 
 app.use(express.json());
@@ -21,6 +22,7 @@ app.post("/signup", async (req, res) => {
   //     passwprd: "xerox1@54321",
   //   });
   try {
+    validateSignUpData(req); // This validates through our custom code writen in utils/validation.js
     await user.save(); // returns a promise
     res.send("User Added Successfully !!");
   } catch (err) {
