@@ -1,4 +1,3 @@
-//
 const express = require("express");
 const connectDB = require("./config/database");
 const User = require("./models/user");
@@ -27,6 +26,16 @@ app.post("/signup", async (req, res) => {
     res.send("User Added Successfully !!");
   } catch (err) {
     res.status(400).send("Error Saving the user: ", err.message);
+  }
+});
+
+app.post("/addUser", async (req, res) => {
+  const user = new User(req.body);
+  try {
+    await user.save();
+    res.send("User Added to DB Successfully !!");
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 });
 
