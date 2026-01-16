@@ -1,10 +1,12 @@
-require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
+
+// MongoDB connection URI - replace with your actual MongoDB URI
+const MONGO_URI =
+  "mongodb+srv://amit07:M9qFplrC5GBEw3MS@cluster0.4gb6h.mongodb.net/DevTinder"; // Replace with your MongoDB URI
 
 const connectDB = async () => {
   try {
-    // await mongoose.connect(process.env.MONGO_URI);
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(MONGO_URI);
   } catch (err) {
     console.error("Database not Connected");
   }

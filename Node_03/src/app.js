@@ -2,19 +2,38 @@ const express = require("express");
 const connectDB = require("./config/database");
 const User = require("./models/user");
 const app = express();
-const PORT = process.env.PORT || 4444;
+const PORT = process.env.PORT || 8888;
 const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const {
+  requestLogger,
+  jsonErrorHandler,
+  authenticateToken,
+  jsonParser,
+} = require("./middleware");
 // console.log("MONGO_URI:", process.env.MONGO_URI);
 
-app.use(express.json());
+// JWT Secret Key - change this in production
+const JWT_SECRET = "your-secret-key-change-this-in-production";
+
+// Middleware to log incoming requests (for debugging)
+app.use(requestLogger);
+
+// JSON parser with error handling
+app.use(jsonParser);
+
+// Error handler for JSON parsing errors (must be after jsonParser)
+app.use(jsonErrorHandler);
+
+app.use(cookieParser());
 // It reads the json object converts into the js object and adds them to the request object : req: now req.body -> js object
 
 // Signup Route
 app.post("/signup", async (req, res) => {
   // creating the new instance of user model
   console.log(req.body);
-  const user = new User(req.body);
   // dummy data
   //   const user = new User({
   //     firstName: "Virat",
@@ -47,18 +66,30 @@ app.post("/signup", async (req, res) => {
 
 // Login Route
 app.post("/login", async (req, res) => {
+  const { emailId, password } = req.body;
   try {
-    const { emailId, password } = req.body;
-    // first check the person who is trying to enter the db is valid email
+    console.log(emailId);
+    console.log(password);
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
       throw new Error("Email Id is not Present in the DB");
     }
 
-    const isPasswordValid = bcrypt.compare(password, user.password); // {plain text,hash} : returns the boolean
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid);
     if (isPasswordValid) {
       console.log("Login Successful !!");
-      res.send("Login Successful !!");
+      // Generate JWT token
+      const token = jwt.sign(
+        { userId: user._id, emailId: user.emailId },
+        JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000), // expires in 8 hrs
+      });
+      console.log(token);
+      res.send({ message: "Login Successful", token: token });
     } else {
       console.log("Invalid Password Entered !!");
       res.send("Invalid Password Entered !!");
@@ -66,6 +97,23 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     res.status(400).send("Something Went Wrong in the Login Route !!");
   }
+});
+
+app.get("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userData = req.user;
+    console.log(userData);
+    res.send(userData);
+  } catch (err) {
+    res.status(400).send("Error Happened in /Profile !!");
+  }
+});
+
+app.post("/sendConnectionRequest", authenticateToken, async (req, res) => {
+  // Sending a Connection Request
+  console.log(req?.user?.firstName);
+  console.log("Sending a Connection Request");
+  res.send("Connection Request Sent !!");
 });
 
 app.post("/addUser", async (req, res) => {
@@ -144,6 +192,15 @@ app.patch("/user/:UserId", async (req, res) => {
   } catch (err) {
     res.status(400).send("Something Went Wrong !!");
   }
+});
+
+// General error handler (must be last, after all routes)
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal Server Error",
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  });
 });
 
 connectDB()
