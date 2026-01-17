@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -33,6 +31,7 @@ const userSchema = new mongoose.Schema(
     age: {
       type: Number,
     },
+    // validate only works when uu create or add new data , not on patch
     gender: {
       type: String,
       validate(value) {
@@ -62,20 +61,22 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-/* ---------------- Schema Methods ENABLED ---------------- */
+// Schema Methods
+// userSchema.methods.getJWT = async function () {
+//   const user = this;
+//   const token = await jwt.sign(
+//     { userId: user._id, emailId: user.emailId },
+//     "fwiuy3784y78ch3ufh98cu8kefjkcnkjncjkn",
+//     { expiresIn: "7d" }
+//   );
+//   return token;
+// };
 
-userSchema.methods.getJWT = async function () {
-  const user = this;
-  const JWT_SECRET = "your-secret-key-change-this-in-production";
-  return jwt.sign(
-    { userId: user._id, emailId: user.emailId },
-    JWT_SECRET,
-    { expiresIn: "7d" }
-  );
-};
+// userSchema.methods.validatePassword = async function (passwbyUser) {
+//   const user = this;
+//   const flag = await bcrypt.compare(passwbyUser, user.password);
+//   return flag;
+// };
 
-userSchema.methods.validatePassword = async function (passwByUser) {
-  return await bcrypt.compare(passwByUser, this.password);
-};
-
+// export by creating model
 module.exports = mongoose.model("User", userSchema);
