@@ -54,4 +54,11 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+// logic : for logout,we need to clear the cookie containing the JWT, effectively logging out the user, then finally redirect them to /login.
+authRouter.post("/logout", (req, res) => {
+  // remove the token and expiring the cookie right now
+  res.cookie("token", null, { expires: new Date(Date.now()) });
+  res.send("Logout Successfully !!");
+});
+
 module.exports = authRouter;
