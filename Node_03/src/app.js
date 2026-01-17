@@ -15,9 +15,6 @@ const {
 } = require("./middleware");
 // console.log("MONGO_URI:", process.env.MONGO_URI);
 
-// JWT Secret Key - change this in production
-const JWT_SECRET = "your-secret-key-change-this-in-production";
-
 // Middleware to log incoming requests (for debugging)
 app.use(requestLogger);
 
@@ -75,16 +72,12 @@ app.post("/login", async (req, res) => {
       throw new Error("Email Id is not Present in the DB");
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await user.validatePassword(password);
     console.log(isPasswordValid);
     if (isPasswordValid) {
       console.log("Login Successful !!");
       // Generate JWT token
-      const token = jwt.sign(
-        { userId: user._id, emailId: user.emailId },
-        JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+      const token = await user.getJWT();
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000), // expires in 8 hrs
       });
