@@ -31,7 +31,11 @@ profileRouter.patch("/profile/edit", authenticateToken, async (req, res) => {
     );
     await LoggedInuser.save();
     console.log("Prevoius Data: ", LoggedInuser);
-    res.send(`{LoggedInuser[firstName]}, Your Profile Updated Successfully !!`);
+    res.json({
+      message: `{LoggedInuser[firstName]}, Your Profile Updated Successfully !!`,
+      data: LoggedInuser,
+    });
+    // res.send(`{LoggedInuser[firstName]}, Your Profile Updated Successfully !!`);
   } catch (err) {
     console.log("Error Message: ", err.message);
   }
