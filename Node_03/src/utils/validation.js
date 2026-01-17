@@ -19,4 +19,21 @@ const validateSignUpData = (req) => {
   }
 };
 
-module.exports = { validateSignUpData };
+const validateProfileData = (req) => {
+  // all keys of req.body should be present insid ethe allowedEditFields only then edit is possible ..
+  const allowedEditFields = [
+    "firstName",
+    "lastName",
+    "emailID",
+    "about",
+    "skills",
+    "gender",
+    "age",
+  ];
+  const isEditAllowed = Object.keys(req.body).every((field) =>
+    allowedEditFields.includes(field)
+  );
+  return isEditAllowed;
+};
+
+module.exports = { validateSignUpData, validateProfileData };
