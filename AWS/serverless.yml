@@ -1,0 +1,26 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: 45devtinder
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: aws-dev
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  # Uncomment to easily set up a custom domain. Read the docs for more details:
+  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
+  # domain: api.example.com
+
+functions:
+  hellofn:
+    handler: hello.handler # Hello file kae andr handler naam ka function pda hua hai
+    events: # trigger
+      - httpApi:
+          path: /hello
+          method: GET
+  byfn:
+    handler: bye.handler
+    events:
+      - httpApi:
+          path: /bye
+          method: GET
