@@ -8,7 +8,7 @@ requestRouter.post(
   async (req, res) => {
     console.log("Sending a Connection Request");
     res.send("Connection Request Sent !!");
-  }
+  },
 );
 
 module.exports = requestRouter;

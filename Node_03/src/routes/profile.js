@@ -10,7 +10,7 @@ profileRouter.get("/profile/view", authenticateToken, async (req, res) => {
     res.status(400).send("Error Happened in /Profile !!");
   }
 });
-
+// Update all fields except Password
 profileRouter.patch("/profile/edit", authenticateToken, async (req, res) => {
   // first we will get the user
   // then we will check wheather the field we want to edit exists in db or not
@@ -40,5 +40,8 @@ profileRouter.patch("/profile/edit", authenticateToken, async (req, res) => {
     console.log("Error Message: ", err.message);
   }
 });
+
+// Update Password
+profileRouter.patch("/profile/password", (req, res) => {});
 
 module.exports = profileRouter;
