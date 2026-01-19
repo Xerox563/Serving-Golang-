@@ -1,0 +1,87 @@
+// how file upload to S3 works using pre-signed URLs.
+
+1️⃣ User Uploads Video (Front-end)
+The user selects a video in your app:
+Facebook → Upload Video → 26 MB
+The browser sends metadata to your backend:
+file size
+file type
+file name
+user info
+⚠️ Browser does NOT send the actual video yet.
+Why?
+Because server cannot handle large video uploads.
+
+2️⃣ Server Receives Metadata (Node / Backend)
+Server sees data like:
+{
+  size: "26MB",
+  type: "video/mp4",
+  name: "piyush-123.mp4",
+  user: "user123"
+}
+
+3️⃣ Backend Generates a Pre-Signed Upload URL
+Backend uses AWS SDK:
+getSignedUrl(s3Client, new PutObjectCommand({
+    Bucket: "mybucket",
+    Key: "/uploads/videos/piyush-123.mp4",
+}))
+
+This creates a temporary upload link.
+Example:
+https://s3.amazonaws.com/mybucket/uploads/videos/piyush-123.mp4?
+X-Amz-Signature=ABCDEF123&Expires=600
+
+This URL allows the browser to upload ONLY this file
+ONLY to this location
+ONLY for a short time (like 10 minutes)
+
+4️⃣ Backend sends the Upload URL to the Browser
+Server responds:
+"Here is your signed URL, use this to upload!"
+And sends the path:
+/uploads/videos/piyush-123.mp4
+Or something similar from the diagram.
+
+5️⃣ Browser Uploads File Directly to S3
+Using:
+PUT <signed-url>
+(body: actual video file)
+This means:
+- Server does NOT receive video
+- Server does NOT store video
+- Browser talks directly to S3
+- S3 stores the file
+
+Exactly like:
+Phone → Internet → S3 Bucket
+
+6️⃣ S3 Stores the File
+
+S3 receives:
+- file content
+- file path
+- file metadata
+Stores it at:
+- uploads/videos/piyush-123.mp4
+
+🔥 Why is this method so powerful?
+✔ Backend server handles only metadata
+(very small data)
+✔ Browser uploads heavy video directly to S
+(no load on server)
+✔ Much faster
+No server bottleneck
+✔ Secur
+S3 stays private
+Browser gets only a temporary upload link
+Backend controls everything
+📦 How Facebook, Instagram, YouTube do uploads?
+
+Same process:
+1️⃣ App asks server for upload permission
+2️⃣ Server gives pre-signed upload URL
+3️⃣ App uploads video directly to cloud storage (S3 / Google Cloud / Azure Blob)
+4️⃣ Server stores only file path in DB
+5️⃣ Server triggers processing (compression, thumbnail, etc.)
