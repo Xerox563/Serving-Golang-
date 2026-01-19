@@ -8,6 +8,8 @@ const {
   S3Client,
   GetObjectCommand,
   PutObjectCommand,
+  ListObjectsV2Command,
+  Bucket$,
 } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
@@ -44,12 +46,11 @@ async function putObject(filename, ContentType) {
 }
 
 // Get Object URL
-// async function init() {
-//   const url = await getObject("bmwm4.jpg");
-//   console.log("Pre-signed URL:", url);
-// }
-
-// init();
+async function callGet() {
+  const url = await getObject("uploads/user-uploads/image-1768830815536.jpeg");
+  console.log("Pre-signed URL:", url);
+}
+// callGet();
 
 // Put Object URL
 async function callPut() {
@@ -57,4 +58,19 @@ async function callPut() {
   console.log("URL for Uploading: ", url);
 }
 
-callPut();
+// callPut();
+
+async function listObjects() {
+  const command = new ListObjectsV2Command({
+    Bucket: "amit.s3-private",
+    Key: "/",
+  });
+  const res = await s3Client.send(command);
+  console.log(res);
+}
+
+async function justTest() {
+  await listObjects();
+}
+
+justTest();
