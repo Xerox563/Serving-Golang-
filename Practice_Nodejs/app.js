@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json()); // Json Parsing
+
 app.use(
   "/home",
   (req, res, next) => {
@@ -49,6 +51,36 @@ app.use(
     res.send("Handling the route user:2 !!");
   },
 );
+/*
+req.body - Data sent by the client in a POST, PUT, or PATCH request.
+:: When to use?
+When we send:
+- Form data
+- JSON data
+- Login info
+- Registration info
+*/
+app.post("/login", (req, res) => {
+  console.log(req.body);
+  res.send("Login Successful !!");
+});
+
+/* 
+To fetch the Dynamic values in the URL.
+When to use?
+Fetching:
+User by ID
+ */
+app.get("/x/:id", (req, res) => {
+  console.log(req.params);
+  res.send("req.params !!");
+});
+
+/* req.query : Data sent after '?' in the url */
+app.get("/search", (req, res) => {
+  console.log(req.query);
+  res.send("req.query !!");
+});
 
 app.listen(3000, (err) => {
   if (err) {
