@@ -53,6 +53,28 @@ app.get("/getUserByEmail", async (req, res) => {
   }
 });
 
+app.delete("/deleteUser", async (req, res) => {
+  const userID = req.body.userId;
+  try {
+    console.log(userID);
+    const user = await User.findByIdAndDelete(userID);
+    res.send(user);
+  } catch (err) {
+    res.status(200).send("Cant Delete the User !!");
+  }
+});
+
+app.patch("/updateUser", async (req, res) => {
+  const userID = req.body.userId;
+  try {
+    console.log(userID);
+    const user = await User.findByIdAndUpdate(userID);
+    res.send(user);
+  } catch (err) {
+    res.status(200).send("Cant Delete the User !!");
+  }
+});
+
 app.get("/feed", async (req, res) => {
   // get all users
   const users = await User.find({});
